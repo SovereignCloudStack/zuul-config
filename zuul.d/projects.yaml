@@ -18,3 +18,17 @@
     tag:
       jobs:
         - noop
+
+- project:
+    name: SovereignCloudStack/k8s-cluster-api-provider
+    # A periodic job for the k8s-cluster-api-provider project,
+    # intended for execution on specific branches. Find the
+    # job definition by referring to this link: https://github.com/SovereignCloudStack/k8s-cluster-api-provider/blob/main/.zuul.yaml
+    periodic-daily:
+      jobs:
+      - k8s-cluster-api-provider-e2e-conformance:
+          branches:
+          - main
+          - release/v6.0.0
+          vars:
+            git_reference: "{{ zuul.branch }}"
