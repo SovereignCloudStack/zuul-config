@@ -5,7 +5,9 @@
     merge-mode: "squash-merge"
     compliance_check:
       jobs:
-        - openstack-scs-flavor-check
+        - openstack-scs-flavor-check:
+            branches:
+              - main
     check:
       jobs:
         - noop
