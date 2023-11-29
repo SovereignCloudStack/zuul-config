@@ -8,6 +8,9 @@
     trigger:
       timer:
         - time: '30 * * * *'
+    failure:
+      mqtt:
+        topic: "zuul/{pipeline}/{project}/{branch}/{change}"
 
 - pipeline:
     name: periodic-daily
@@ -18,6 +21,9 @@
     trigger:
       timer:
         - time: '0 3 * * *'
+    failure:
+      mqtt:
+        topic: "zuul/{pipeline}/{project}/{branch}/{change}"
 
 - pipeline:
     name: compliance_check
@@ -29,3 +35,6 @@
     trigger:
       timer:
         time: '*/15 * * * *'
+    failure:
+      mqtt:
+        topic: "zuul/{pipeline}/{project}/{branch}/{change}"
