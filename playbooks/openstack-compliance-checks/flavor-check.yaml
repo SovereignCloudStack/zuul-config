@@ -18,6 +18,10 @@
       community.general.ansible_galaxy_install:
         type: collection
         name: openstack.cloud
+      register: install_collection_openstackcloud
+      until: "install_collection_openstackcloud is not failed"
+      retries: 5
+      delay: 5
 
     - name: Create cloud config dir
       ansible.builtin.file:
