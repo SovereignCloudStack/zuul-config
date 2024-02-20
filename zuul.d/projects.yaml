@@ -3,11 +3,6 @@
     name: SovereignCloudStack/zuul-config
     default-branch: main
     merge-mode: "squash-merge"
-    compliance_check:
-      jobs:
-        - openstack-scs-flavor-check:
-            branches:
-              - main
     check:
       jobs:
         - noop
