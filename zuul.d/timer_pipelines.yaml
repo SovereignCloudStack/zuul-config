@@ -26,6 +26,19 @@
         topic: "zuul/{pipeline}/{project}/{branch}/{change}"
 
 - pipeline:
+    name: periodic-weekly
+    description: This pipeline runs jobs weekly on Sundays at 3am.
+    post-review: true
+    manager: independent
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 3 * * SUN'
+    failure:
+      mqtt:
+        topic: "zuul/{pipeline}/{project}/{branch}/{change}"
+
+- pipeline:
     name: compliance_check
     description: |
       This pipeline will run jobs to verify registered cloud providers
