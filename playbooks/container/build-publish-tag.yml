@@ -9,7 +9,6 @@
     container_name: "{{ container_name | default( zuul.project.short_name ) }}"
     containerfile_path: "{{ containerfile_path | default('.') }}"
     version: "{{ zuul['tag'] | default('latest') }}"
-    licenses: "{{ licenses | default('') }}"
 
   tasks:
     - name: "Log into registry"
@@ -34,7 +33,9 @@
           docker buildx build \
               --label "org.opencontainers.image.created=${created}" \
               --label "org.opencontainers.image.documentation=https://docs.scs.community" \
-              --label "org.opencontainers.image.licenses=ASL 2.0" \
+              {% licenses is defined -%}
+              --label "org.opencontainers.image.licenses={{ licenses }}" \
+              {%- endif %}
               --label "org.opencontainers.image.revision=${revision}" \
               --label "org.opencontainers.image.source={{ zuul.project.canonical_name }}" \
               --label "org.opencontainers.image.title=${container_name}" \
