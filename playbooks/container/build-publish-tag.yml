@@ -33,7 +33,7 @@
           docker buildx build \
               --label "org.opencontainers.image.created=${created}" \
               --label "org.opencontainers.image.documentation=https://docs.scs.community" \
-              {% licenses is defined -%}
+              {% if licenses is defined -%}
               --label "org.opencontainers.image.licenses={{ licenses }}" \
               {%- endif %}
               --label "org.opencontainers.image.revision=${revision}" \
