@@ -47,3 +47,13 @@
     secrets:
       - secret: openstack-application-credential
         name: openstack_appcred
+
+- job:
+    name: image-build-push
+    description: "Builds Container Images and optionally push to Container Registry"
+    parent: base
+    abstract: true
+    pre-run:
+      - playbooks/container/pre.yml
+    run:
+      - playbooks/container/build-publish-tag.yml
