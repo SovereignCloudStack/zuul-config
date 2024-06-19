@@ -3,9 +3,23 @@
   hosts: "all"
 
   vars:
-    image_name: "{{ (docker_registry | default('registry.scs.community')) + '/' + registry_project + '/' + (container_name | default( zuul.project.short_name )) }}"
+    docker_registry: "registry.scs.community"
+    registry_project: ""
+    container_name: "{{ zuul.project.short_name }}"
+    containerfile_path: "" # Should be set to path to containerfile inside the repo with leading /, e.g. /containerfiles
+    dockerfile: "Dockerfile" # Alternate name for the Dockerfile
+    docs_link: "https://docs.scs.community"
+    licenses: "" # SPDX License Expression
+    vendor_name: "Sovereign Cloud Stack SCS"
+    image_name: "{{ docker_registry  + '/' + registry_project + '/' + container_name }}"
+    args: {} # additional build arguments
 
   tasks:
+    - name: "Fail on undefined mandatory variables"
+      ansible.builtin.fail:
+        msg: "Necessary variables not defined. Please check if registry_project variable or secret is correctly set."
+      when: registry_project is undefined or secret.DOCKER_USERNAME is undefined or secret.DOCKER_PASSWORD is undefined
+
     - name: "Log into registry"
       community.docker.docker_login:
         registry_url: "{{ docker_registry }}"
@@ -18,13 +32,14 @@
         name: "{{ image_name }}"
         tag: "{{ zuul['tag'] | default('latest') }}"
         path: "{{ zuul.project.src_dir + (containerfile_path | default('')) }}"
+        args: "{{ args }}"
         labels:
           org.opencontainers.image.created: "{{ ansible_date_time.iso8601 | quote }}"
-          org.opencontainers.image.documentation: "{{ docs_link | default('https://docs.scs.community') | quote }}"
-          org.opencontainers.image.licenses: "{{ licenses | default('') | quote }}"
+          org.opencontainers.image.documentation: "{{ docs_link | quote }}"
+          org.opencontainers.image.licenses: "{{ licenses | quote }}"
           org.opencontainers.image.revision: "{{ zuul.commit_id | quote }}}"
           org.opencontainers.image.source: "{{ zuul.project.canonical_name | quote }}"
-          org.opencontainers.image.title: "{{ container_name | default( zuul.project.short_name ) | quote }}"
+          org.opencontainers.image.title: "{{ container_name | quote }}"
           org.opencontainers.image.url: "{{ zuul.project.canonical_name | quote }}"
           org.opencontainers.image.vendor: "Sovereign Cloud Stack SCS"
           org.opencontainers.image.version: "{{ zuul['tag'] | default('latest') | quote }}"
