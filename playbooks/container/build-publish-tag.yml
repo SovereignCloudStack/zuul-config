@@ -25,7 +25,7 @@
           org.opencontainers.image.revision: "{{ zuul.commit_id | quote }}}"
           org.opencontainers.image.source: "{{ zuul.project.canonical_name | quote }}"
           org.opencontainers.image.title: "{{ container_name | default( zuul.project.short_name ) | quote }}"
-          org.opencontainers.image.url: "https://scs.community"
+          org.opencontainers.image.url: "{{ zuul.project.canonical_name | quote }}"
           org.opencontainers.image.vendor: "Sovereign Cloud Stack SCS"
           org.opencontainers.image.version: "{{ zuul['tag'] | default('latest') | quote }}"
       when: custom_build_script is not defined
