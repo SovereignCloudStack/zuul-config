@@ -1,0 +1,100 @@
+---
+images-dir: /opt/nodepool/images
+elements-dir: /data/nodepool/elements
+webapp:
+  port: 8005
+
+zookeeper-servers:
+  - host: zookeeper.zuul-ci.svc.cluster.local
+    port: 2281
+
+zookeeper-tls:
+  cert: /tls/client/tls.crt
+  key: /tls/client/tls.key
+  ca: /tls/client/ca.crt
+
+diskimages:
+  - abstract: true
+    elements:
+      - vm
+      - block-device-efi
+      - growroot
+      - enable-serial-console
+      - cloud-init
+      - pkg-map
+      - infra-package-needs
+      - zuul-worker
+    env-vars:
+      DIB_CHECKSUM: '1'
+      DIB_CLOUD_INIT_DATASOURCES: OpenStack
+      DIB_IMAGE_CACHE: /srv/dib_cache
+      TMPDIR: /srv/dib_tmp
+      ZUUL_USER_SSH_PUBLIC_KEY: |
+        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/A41WAl9wyRpLMfoK65/M1kL2XtrOI6qO3WOZGWfLpcH3kWUxziCOpdRftNySWya48GH7a0QTFnGLaeWEhg2UUKYooc2m68bms+8M6+Ls3bUkI7klT/mwD9JWw03DjecCkDSxPWrOVvA1NsAd2S3ydaRRnR8tbdgIKf3vxZyewIrYymbfQ9oUBhfq0cVUDmXNb/4LE3PSVHvda4ApYI1HkphSFlOpZ5u/4/XmPdioc8U2eIHSPjTmup/Alk0rOUFp19JLDn58zi49cggtGz2sYCLtCeAX4ad/zReZxHrkS5Sq92NZZEL+wuGUikpqYvnKCkEi4NUO+RmxnnY2WBNgk17WH6PKcsZMPETClPT+nW9G6QbSdhDCyfMi3sbG44HYYWuexgovXEzklgJox1pzXQyRU3LzO6dOkl0fJ/nfGaOY7lumyDaXCQj7VkwzuBZvQKz/6pYsrhJQmtiQuEy6kz+EOnfFAd3A6t3Auun/EnftfglyOf5vBIHk0WxbD45wmeMNdHs4A6IUWaMNFFEqb4+NkVGPqagLnkQke9KF0Amovh8i7PfmvTj7qIsq6vCkurif4LSYIksEJg0QKvlgRar7qp8SYCNN0uWi789viPQcXKMoEaZHL1LrE+wYiS2sFNvrAfkekhd/CuQpXLPNLUA5jmkgSL2lQ8CfDmMt9w==
+    formats:
+     - qcow2
+    name: base
+  
+  - elements:
+      - ubuntu-minimal
+    env-vars:
+      DIB_APT_LOCAL_CACHE: '0'
+      DIB_DISABLE_APT_CLEANUP: '1'
+      DIB_RELEASE: jammy
+      FS_TYPE: ext3
+    formats:
+      - qcow2
+    name: ubuntu-jammy
+    parent: base
+    pause: false
+    rebuild-age: 86400
+    release: jammy
+    username: ubuntu
+
+labels:
+  - min-ready: 2
+    name: ubuntu-jammy
+  - name: pod-fedora-latest
+  - name: pod-fedora-39
+
+providers:
+  - name: osinfra
+    driver: kubernetes
+    context: zuul
+    pools:
+      - name: zuul
+        labels:
+          - name: pod-fedora-latest
+            type: pod
+            image: quay.io/opentelekomcloud/zuul-fedora:39
+            cpu: 2
+            memory: 2048
+          - name: pod-fedora-39
+            type: pod
+            image: quay.io/opentelekomcloud/zuul-fedora:39
+            cpu: 2
+            memory: 2048
+
+  - boot-timeout: 180
+    cloud: gx-scs
+    diskimages:
+      - name: ubuntu-jammy
+        pause: false
+    driver: openstack
+    launch-retries: 3
+    name: gx-scs
+    pools:
+      - labels:
+          - console-log: true
+            diskimage: ubuntu-jammy
+            flavor-name: SCS-2V-8-20
+            key-name: zuul-nodepool
+            name: ubuntu-jammy
+        max-servers: 4
+        name: main
+        networks:
+          - zuul_network
+        security-groups:
+          - zuul_secgroup
+    rate: 3.0
+    region-name: RegionOne
