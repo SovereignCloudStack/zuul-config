@@ -1,8 +1,14 @@
 ---
+- authorization-rule:
+    name: tenant-scs-mgmt
+    conditions:
+        - resource_access:
+            account:
+              roles: "tenant-scs-mgmt"
 - tenant:
     name: SCS
     admin-rules:
-      - zuul-tenant-mgmt
+      - tenant-scs-mgmt
     exclude-unprotected-branches: true
     max-job-timeout: 14400
     max-nodes-per-job: 5
