@@ -1,6 +1,6 @@
 ---
 images-dir: /opt/nodepool/images
-elements-dir: /data/nodepool/elements
+elements-dir: /data/current/nodepool/elements
 webapp:
   port: 8005
 
