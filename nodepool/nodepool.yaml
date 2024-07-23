@@ -27,8 +27,8 @@ diskimages:
     env-vars:
       DIB_CHECKSUM: '1'
       DIB_CLOUD_INIT_DATASOURCES: OpenStack
-      DIB_IMAGE_CACHE: /srv/dib_cache
-      TMPDIR: /srv/dib_tmp
+      DIB_IMAGE_CACHE: /opt/dib_cache
+      TMPDIR: /opt/dib_tmp
       ZUUL_USER_SSH_PUBLIC_KEY: |
         ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/A41WAl9wyRpLMfoK65/M1kL2XtrOI6qO3WOZGWfLpcH3kWUxziCOpdRftNySWya48GH7a0QTFnGLaeWEhg2UUKYooc2m68bms+8M6+Ls3bUkI7klT/mwD9JWw03DjecCkDSxPWrOVvA1NsAd2S3ydaRRnR8tbdgIKf3vxZyewIrYymbfQ9oUBhfq0cVUDmXNb/4LE3PSVHvda4ApYI1HkphSFlOpZ5u/4/XmPdioc8U2eIHSPjTmup/Alk0rOUFp19JLDn58zi49cggtGz2sYCLtCeAX4ad/zReZxHrkS5Sq92NZZEL+wuGUikpqYvnKCkEi4NUO+RmxnnY2WBNgk17WH6PKcsZMPETClPT+nW9G6QbSdhDCyfMi3sbG44HYYWuexgovXEzklgJox1pzXQyRU3LzO6dOkl0fJ/nfGaOY7lumyDaXCQj7VkwzuBZvQKz/6pYsrhJQmtiQuEy6kz+EOnfFAd3A6t3Auun/EnftfglyOf5vBIHk0WxbD45wmeMNdHs4A6IUWaMNFFEqb4+NkVGPqagLnkQke9KF0Amovh8i7PfmvTj7qIsq6vCkurif4LSYIksEJg0QKvlgRar7qp8SYCNN0uWi789viPQcXKMoEaZHL1LrE+wYiS2sFNvrAfkekhd/CuQpXLPNLUA5jmkgSL2lQ8CfDmMt9w==
     formats:
