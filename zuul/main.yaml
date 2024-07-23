@@ -2,11 +2,10 @@
 - authorization-rule:
     name: tenant-scs-mgmt
     conditions:
-        - resource_access:
-            account:
-              roles: "tenant-scs-mgmt"
+      - resource_access.zuul.roles: "tenant-scs-mgmt"
+      
 - tenant:
-    name: SCS
+    name: scs
     admin-rules:
       - tenant-scs-mgmt
     exclude-unprotected-branches: true
