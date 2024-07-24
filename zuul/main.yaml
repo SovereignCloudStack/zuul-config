@@ -9,7 +9,7 @@
     admin-rules:
       - tenant-scs-mgmt
     exclude-unprotected-branches: true
-    max-job-timeout: 14400
+    max-job-timeout: 21600
     max-nodes-per-job: 5
     source:
       github:
