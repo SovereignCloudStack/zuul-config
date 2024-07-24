@@ -18,20 +18,44 @@
         - event: check_run
           action: rerequested
           check: .*/check:.*
+      github:
+        - event: pull_request
+          action:
+            - opened
+            - changed
+            - reopened
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*recheck\s*$
+        - event: check_run
+          action: rerequested
+          check: .*/check:.*
     start:
       githubzuulapp:
+        check: 'in_progress'
+        comment: false
+      github:
         check: 'in_progress'
         comment: false
     success:
       githubzuulapp:
         check: 'success'
         comment: false
+      github:
+        check: 'success'
+        comment: false
     failure:
       githubzuulapp:
         check: 'failure'
         comment: false
+      github:
+        check: 'failure'
+        comment: false
     dequeue:
       githubzuulapp:
+        check: cancelled
+        comment: false
+      github:
         check: cancelled
         comment: false
 
@@ -46,6 +70,13 @@
     supercedes: check
     require:
       githubzuulapp:
+        # review:
+        #   - permission: write
+        #     type: approved
+        label: gate
+        open: true
+        current-patchset: true
+      github:
         # review:
         #   - permission: write
         #     type: approved
@@ -73,8 +104,31 @@
           action: labeled
           label:
             - gate
+      github:
+        - event: pull_request_review
+          action: submitted
+          state: approved
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*regate\s*$
+        - event: pull_request_review
+          action: dismissed
+          state: request_changes
+        - event: pull_request
+          action: status
+          status: ".*:success"
+        - event: check_run
+          action: rerequested
+          check: .*/gate:.*
+        - event: pull_request
+          action: labeled
+          label:
+            - gate
     start:
       githubzuulapp:
+        check: 'in_progress'
+        comment: false
+      github:
         check: 'in_progress'
         comment: false
     success:
@@ -82,12 +136,22 @@
         check: 'success'
         comment: false
         merge: true
+      github:
+        check: 'success'
+        comment: false
+        merge: true
     failure:
-      githubzuulapp:
+     githubzuulapp:
+        check: 'failure'
+        comment: false
+     github:
         check: 'failure'
         comment: false
     dequeue:
       githubzuulapp:
+        check: cancelled
+        comment: false
+      github:
         check: cancelled
         comment: false
     window-floor: 20
@@ -104,6 +168,9 @@
       githubzuulapp:
         - event: push
           ref: ^refs/heads/.*$
+      github:
+        - event: push
+          ref: ^refs/heads/.*$
 
 - pipeline:
     name: tag
@@ -113,6 +180,9 @@
     post-review: true
     trigger:
       githubzuulapp:
+        - event: push
+          ref: ^refs/tags/.*$
+      github:
         - event: push
           ref: ^refs/tags/.*$
 
@@ -130,12 +200,29 @@
           action: labeled
           label:
             - e2e-test
+      github:
+        - event: pull_request
+          action: labeled
+          label:
+            - e2e-test
     start:
       githubzuulapp:
         check: 'in_progress'
         comment: false
+      github:
+        check: 'in_progress'
+        comment: false
     success:
       githubzuulapp:
+        check: 'success'
+        comment: true
+        label:
+          - successful-e2e-test
+        unlabel:
+          - e2e-test
+          - failed-e2e-test
+          - cancelled-e2e-test
+      github:
         check: 'success'
         comment: true
         label:
@@ -154,8 +241,26 @@
           - e2e-test
           - successful-e2e-test
           - cancelled-e2e-test
+      github:
+        check: 'failure'
+        comment: true
+        label:
+          - failed-e2e-test
+        unlabel:
+          - e2e-test
+          - successful-e2e-test
+          - cancelled-e2e-test
     dequeue:
       githubzuulapp:
+        check: cancelled
+        comment: true
+        label:
+          - cancelled-e2e-test
+        unlabel:
+          - e2e-test
+          - successful-e2e-test
+          - failed-e2e-test
+      github:
         check: cancelled
         comment: true
         label:
@@ -179,12 +284,29 @@
           action: labeled
           label:
             - e2e-quick-test
+      github:
+        - event: pull_request
+          action: labeled
+          label:
+            - e2e-quick-test
     start:
       githubzuulapp:
         check: 'in_progress'
         comment: false
+      github:
+        check: 'in_progress'
+        comment: false
     success:
       githubzuulapp:
+        check: 'success'
+        comment: true
+        label:
+          - successful-e2e-quick-test
+        unlabel:
+          - e2e-quick-test
+          - failed-e2e-quick-test
+          - cancelled-e2e-quick-test
+      github:
         check: 'success'
         comment: true
         label:
@@ -203,8 +325,26 @@
           - e2e-quick-test
           - successful-e2e-quick-test
           - cancelled-e2e-quick-test
+      github:
+        check: 'failure'
+        comment: true
+        label:
+          - failed-e2e-quick-test
+        unlabel:
+          - e2e-quick-test
+          - successful-e2e-quick-test
+          - cancelled-e2e-quick-test
     dequeue:
       githubzuulapp:
+        check: cancelled
+        comment: true
+        label:
+          - cancelled-e2e-quick-test
+        unlabel:
+          - e2e-quick-test
+          - successful-e2e-quick-test
+          - failed-e2e-quick-test
+      github:
         check: cancelled
         comment: true
         label:
@@ -225,12 +365,23 @@
         - event: pull_request
           action:
             - changed
+      github:
+        - event: pull_request
+          action:
+            - changed
     require:
       githubzuulapp:
         label:
           - successful-e2e-test
+      github:
+        label:
+          - successful-e2e-test
     success:
       githubzuulapp:
+        unlabel:
+          - successful-e2e-test
+        comment: false
+      github:
         unlabel:
           - successful-e2e-test
         comment: false
@@ -246,12 +397,23 @@
         - event: pull_request
           action:
             - changed
+      github:
+        - event: pull_request
+          action:
+            - changed
     require:
       githubzuulapp:
         label:
           - successful-e2e-quick-test
+      github:
+        label:
+          - successful-e2e-quick-test
     success:
       githubzuulapp:
+        unlabel:
+          - successful-e2e-quick-test
+        comment: false
+      github:
         unlabel:
           - successful-e2e-quick-test
         comment: false
