@@ -16,7 +16,7 @@
       register: cloud_config
 
     - name: Include upload logs role
-      no_log: true
+      # no_log: true
       ansible.builtin.include_role:
         name: upload-logs-swift
       vars:
