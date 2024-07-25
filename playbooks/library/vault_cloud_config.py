@@ -105,9 +105,17 @@ class VaultCloudConfigModule:
             # user_secret_name is found in cloud_data. Resolve it's value
             cloud_data.update(self._get_secret_data(user_secret_name))
 
+        scope_keys = [
+            "project_id",
+            "project_name",
+            "project_domain_id",
+            "project_domain_name",
+            "domain_id",
+            "domain_name",
+        ]
         try:
             cloud_config = dict(auth=dict())
-            # this attrs go under 'auth'
+            # those attrs go under 'auth'
             auth_attrs = [
                 "auth_url",
                 "user_domain_name",
@@ -115,15 +123,9 @@ class VaultCloudConfigModule:
                 "username",
                 "user_id",
                 "password",
-                "project_name",
-                "project_id",
-                "project_domain_id",
-                "project_domain_name",
-                "domain_id",
-                "domain_name",
                 "application_credential_id",
                 "application_credential_secret",
-            ]
+            ] + scope_keys
             for k, v in cloud_data.items():
                 if k in auth_attrs:
                     cloud_config["auth"][k] = v
@@ -135,6 +137,8 @@ class VaultCloudConfigModule:
                 cloud_config["auth"]["project_name"] = project_name
             if "application_credential_id" in cloud_config["auth"]:
                 cloud_config["auth_type"] = "v3applicationcredential"
+                for key in scope_keys:
+                    cloud_config["auth"].pop(key, None)
 
             result = cloud_config
 
@@ -148,11 +152,17 @@ class VaultCloudConfigModule:
                     new_auth = dict()
                     result["auth_type"] = "token"
                     new_auth["auth_url"] = conn.config._auth.auth_url
-                    new_auth["project_name"] = (
-                        conn.session.auth.get_project_id(conn)
-                        if not project_name
-                        else cloud_config["auth"]["project_name"]
-                    )
+                    if project_name:
+                        new_auth["project_name"] = cloud_config["auth"][
+                            "project_name"
+                        ]
+                    else:
+                        # Re-add scope data into the new auth
+                        new_auth = {}
+                        for k, v in cloud_data.items():
+                            if k in scope_keys:
+                                new_auth[k] = v
+
                     new_auth["token"] = token
                     result["auth"] = new_auth
                 except openstack.exceptions.SDKException as e:
