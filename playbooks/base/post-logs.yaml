@@ -14,8 +14,6 @@
         cloud_secret_path: "{{ vault_cloud_secret_path }}"
         mode: "config"
       register: cloud_config
-    - debug:
-        var: cloud_config
 
     - name: Include upload logs role
       no_log: true
