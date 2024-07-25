@@ -2,18 +2,20 @@
 - name: Base post-logs
   hosts: localhost
   gather_facts: false
-  roles:
+roles:
     - generate-zuul-manifest
   tasks:
 
     - name: Get cloud config from vault
-      no_log: true
+      #no_log: true
       vault_cloud_config:
         vault_addr: "{{ zuul_vault_addr }}"
         vault_token: "{{ lookup('file', zuul_base_vault_token_path) }}"
         cloud_secret_path: "{{ vault_cloud_secret_path }}"
         mode: "token"
       register: cloud_config
+    - debug:
+       var: cloud_config
 
     - name: Include upload logs role
       no_log: true
