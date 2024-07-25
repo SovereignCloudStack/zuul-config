@@ -8,7 +8,7 @@
         - tox-linters
     gate:
       jobs:
-        - noop
+        - tox-linters
     post:
       jobs:
         - noop
