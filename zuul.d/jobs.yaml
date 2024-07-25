@@ -17,10 +17,13 @@
     roles:
       - zuul: zuul/zuul-jobs
     timeout: 1800
+    vars:
+      vault_cloud_secret_path: "clouds/wavestack_zuul_logs"
     nodeset:
       nodes:
         - name: ubuntu-jammy
           label: ubuntu-jammy
+
 - job:
     name: base-extra-logs
     parent: base
