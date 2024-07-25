@@ -5,7 +5,7 @@
     merge-mode: "squash-merge"
     check:
       jobs:
-        - noop
+        - tox-linters
     gate:
       jobs:
         - noop
