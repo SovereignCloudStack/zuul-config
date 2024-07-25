@@ -4,14 +4,19 @@
   become: true
   tasks:
     - name: Ensure openstack directory exists
-      file:
+      ansible.builtin.file:
         path: "/etc/openstack"
-        state: directory
+        state: "directory"
+        mode: "0755"
+
     - name: Create clouds.yaml
-      template:
+      ansible.builtin.template:
         src: "templates/clouds.yaml.j2"
         dest: "/etc/openstack/clouds.yaml"
+        mode: "0400"
+
     - name: Create secure.yaml
-      template:
+      ansible.builtin.template:
         src: "templates/secure.yaml.j2"
         dest: "/etc/openstack/secure.yaml"
+        mode: "0400"
