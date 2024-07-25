@@ -141,6 +141,7 @@ class VaultCloudConfigModule:
                     cloud_config["auth"].pop(key, None)
 
             result = cloud_config
+            token = None
 
             if self.params["mode"] == "token":
                 if not HAS_OPENSTACK:
@@ -150,15 +151,14 @@ class VaultCloudConfigModule:
                     conn = openstack.connect(**cloud_config)
                     token = conn.auth_token
                     new_auth = dict()
-                    result["auth_type"] = "token"
-                    new_auth["auth_url"] = conn.config._auth.auth_url
+                    result["auth_type"] = "v3token"
+                    new_auth["auth_url"] = conn.config.auth["auth_url"]
                     if project_name:
                         new_auth["project_name"] = cloud_config["auth"][
                             "project_name"
                         ]
                     else:
                         # Re-add scope data into the new auth
-                        new_auth = {}
                         for k, v in cloud_data.items():
                             if k in scope_keys:
                                 new_auth[k] = v

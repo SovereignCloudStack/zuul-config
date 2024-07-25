@@ -12,11 +12,13 @@
         vault_addr: "{{ zuul_vault_addr }}"
         vault_token: "{{ lookup('file', zuul_base_vault_token_path) }}"
         cloud_secret_path: "{{ vault_cloud_secret_path }}"
-        mode: "token"
+        mode: "config"
       register: cloud_config
+    - debug:
+        var: cloud_config
 
     - name: Include upload logs role
-      # no_log: true
+      no_log: true
       ansible.builtin.include_role:
         name: upload-logs-swift
       vars:
