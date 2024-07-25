@@ -4,6 +4,7 @@
   gather_facts: false
   roles:
     - generate-zuul-manifest
+  tasks:
 
     - name: Get cloud config from vault
       no_log: true
@@ -26,7 +27,3 @@
         # Unique log prefix to avoid container name collisions when ceph is
         # used.
         zuul_log_container: zuul-logs
-
-    - role: upload-logs
-      vars:
-        zuul_log_url: "https://zuul-logs.scs.community"
