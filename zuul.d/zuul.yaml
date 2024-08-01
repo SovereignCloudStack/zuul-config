@@ -5,12 +5,8 @@
     check:
       jobs:
         - tox-linters
+        - zuul-config-build-image-f39
     gate:
       jobs:
         - tox-linters
-    post:
-      jobs:
-        - noop
-    tag:
-      jobs:
-        - noop
+        - zuul-config-build-image-f39
