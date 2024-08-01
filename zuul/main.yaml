@@ -16,7 +16,7 @@
         config-projects:
           - SovereignCloudStack/zuul-config:
               load-branch: main
-          - sovereigncloudstack/zuul-scs-jobs:
+          - SovereignCloudStack/zuul-scs-jobs:
               load-branch: main
         untrusted-projects:
           - SovereignCloudStack/Design-Docs
