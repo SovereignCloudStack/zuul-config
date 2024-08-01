@@ -3,7 +3,7 @@
     name: tenant-scs-mgmt
     conditions:
       - resource_access.zuul.roles: "tenant-scs-mgmt"
-      
+
 - tenant:
     name: scs
     admin-rules:
@@ -15,6 +15,8 @@
       github:
         config-projects:
           - SovereignCloudStack/zuul-config:
+              load-branch: main
+          - sovereigncloudstack/zuul-scs-jobs:
               load-branch: main
         untrusted-projects:
           - SovereignCloudStack/Design-Docs
@@ -66,4 +68,3 @@
           - zuul/zuul-jobs:
               include:
                 - job
-  
