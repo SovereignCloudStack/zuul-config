@@ -1,0 +1,12 @@
+# Base image building jobs
+- job:
+    name: zuul-config-build-image
+    parent: scs-build-container-image
+    abstract: true
+
+- job:
+    name: zuul-config-upload-image
+    parent: scs-upload-container-image
+    abstract: true
+    vars:
+      upload_container_image_promote: false
