@@ -30,7 +30,7 @@
         - context: containers
           container_filename: Dockerfile.f40
           registry: registry.scs.community
-          repository: zuul/pod-fedora
+          repository: registry.scs.community/zuul/pod-fedora
           tags: ['40']
     files: &zuul-f40_files
       - containers/Dockerfile.f40
