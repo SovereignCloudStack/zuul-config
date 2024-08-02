@@ -1,5 +1,0 @@
----
-- name: Base post
-  hosts: all
-  roles:
-    - remove-build-sshkey
