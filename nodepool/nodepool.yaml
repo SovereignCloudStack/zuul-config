@@ -68,9 +68,10 @@ diskimages:
     username: ubuntu
 
 labels:
-  - min-ready: 2
-    name: ubuntu-jammy
+  - name: ubuntu-jammy
+    min-ready: 2
   - name: ubuntu-jammy-large
+    min-ready: 1
   - name: ubuntu-noble
   - name: pod-fedora-latest
   - name: pod-fedora-39
