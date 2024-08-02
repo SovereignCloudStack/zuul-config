@@ -70,6 +70,7 @@ diskimages:
 labels:
   - min-ready: 2
     name: ubuntu-jammy
+  - name: ubuntu-jammy-large
   - name: ubuntu-noble
   - name: pod-fedora-latest
   - name: pod-fedora-39
@@ -107,6 +108,11 @@ providers:
             flavor-name: SCS-2V-8-20
             key-name: zuul-nodepool
             name: ubuntu-jammy
+          - console-log: true
+            diskimage: ubuntu-jammy
+            flavor-name: SCS-4V-8-20
+            key-name: zuul-nodepool
+            name: ubuntu-jammy-large
           - console-log: true
             diskimage: ubuntu-noble
             flavor-name: SCS-2V-8-20
