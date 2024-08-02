@@ -10,3 +10,6 @@
       jobs:
         - tox-linters
         - zuul-config-build-image-f39
+    post:
+      jobs:
+        - zuul-config-upload-image-f39
