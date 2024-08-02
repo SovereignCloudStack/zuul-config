@@ -1,6 +1,0 @@
----
-- name: Base post-fetch
-  hosts: all
-  roles:
-    - fetch-output
-    - merge-output-to-logs
