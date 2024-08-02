@@ -1,4 +1,8 @@
 ---
+# WARNING: GitHub gives you a feeling of being case insensitive, but it is not.
+# Be sure to use proper case when adding new projects here. This is especially
+# important for the organization name
+#
 - authorization-rule:
     name: tenant-scs-mgmt
     conditions:
@@ -14,11 +18,10 @@
     source:
       github:
         config-projects:
-          - SovereignCloudStack/zuul-config:
-              load-branch: main
           - SovereignCloudStack/zuul-scs-jobs:
               load-branch: main
         untrusted-projects:
+          - SovereignCloudStack/zuul-config
           - SovereignCloudStack/Design-Docs
           - SovereignCloudStack/Operational-Docs
           - SovereignCloudStack/contributor-guide
