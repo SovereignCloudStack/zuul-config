@@ -33,8 +33,7 @@
           - SovereignCloudStack/infrastructure
           - SovereignCloudStack/issues
           - SovereignCloudStack/k8s-cassandra
-          - SovereignCloudStack/k8s-cluster-api-provider:
-              exclude-unprotected-branches: true
+          - SovereignCloudStack/k8s-cluster-api-provider
           - SovereignCloudStack/k8s-cortex
           - SovereignCloudStack/k8s-gatekeeper
           - SovereignCloudStack/k8s-grafana
@@ -52,16 +51,14 @@
           - SovereignCloudStack/poc-gardener
           - SovereignCloudStack/poc-kubermatic
           - SovereignCloudStack/poc-rancher
-          - SovereignCloudStack/security-infra-scan-pipeline:
-              exclude-unprotected-branches: true
+          - SovereignCloudStack/security-infra-scan-pipeline
           - SovereignCloudStack/testbed-gx-iam
           - SovereignCloudStack/testbed-gx-k8s
           - SovereignCloudStack/testbed-gx-scs
           - SovereignCloudStack/website
           - SovereignCloudStack/zuul_deployment
           - SovereignCloudStack/status-page-api
-          - SovereignCloudStack/standards:
-              exclude-unprotected-branches: true
+          - SovereignCloudStack/standards
           - SovereignCloudStack/container-images
           - SovereignCloudStack/zuul-mqtt-matrix-bridge
           - SovereignCloudStack/cluster-stacks
