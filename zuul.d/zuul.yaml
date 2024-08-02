@@ -10,8 +10,5 @@
     gate:
       jobs:
         - tox-linters
-        - zuul-config-build-image-f39
-        - zuul-config-upload-image-f40
-    post:
-      jobs:
         - zuul-config-upload-image-f39
+        - zuul-config-upload-image-f40
