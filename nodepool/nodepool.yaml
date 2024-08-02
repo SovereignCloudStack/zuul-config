@@ -14,7 +14,8 @@ zookeeper-tls:
   ca: /tls/client/ca.crt
 
 diskimages:
-  - abstract: true
+  - name: base
+    abstract: true
     elements:
       - vm
       - block-device-efi
@@ -33,9 +34,9 @@ diskimages:
         ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/A41WAl9wyRpLMfoK65/M1kL2XtrOI6qO3WOZGWfLpcH3kWUxziCOpdRftNySWya48GH7a0QTFnGLaeWEhg2UUKYooc2m68bms+8M6+Ls3bUkI7klT/mwD9JWw03DjecCkDSxPWrOVvA1NsAd2S3ydaRRnR8tbdgIKf3vxZyewIrYymbfQ9oUBhfq0cVUDmXNb/4LE3PSVHvda4ApYI1HkphSFlOpZ5u/4/XmPdioc8U2eIHSPjTmup/Alk0rOUFp19JLDn58zi49cggtGz2sYCLtCeAX4ad/zReZxHrkS5Sq92NZZEL+wuGUikpqYvnKCkEi4NUO+RmxnnY2WBNgk17WH6PKcsZMPETClPT+nW9G6QbSdhDCyfMi3sbG44HYYWuexgovXEzklgJox1pzXQyRU3LzO6dOkl0fJ/nfGaOY7lumyDaXCQj7VkwzuBZvQKz/6pYsrhJQmtiQuEy6kz+EOnfFAd3A6t3Auun/EnftfglyOf5vBIHk0WxbD45wmeMNdHs4A6IUWaMNFFEqb4+NkVGPqagLnkQke9KF0Amovh8i7PfmvTj7qIsq6vCkurif4LSYIksEJg0QKvlgRar7qp8SYCNN0uWi789viPQcXKMoEaZHL1LrE+wYiS2sFNvrAfkekhd/CuQpXLPNLUA5jmkgSL2lQ8CfDmMt9w==
     formats:
      - qcow2
-    name: base
-  
-  - elements:
+
+  - name: ubuntu-jammy
+    elements:
       - ubuntu-minimal
     env-vars:
       DIB_APT_LOCAL_CACHE: '0'
@@ -44,16 +45,32 @@ diskimages:
       FS_TYPE: ext3
     formats:
       - qcow2
-    name: ubuntu-jammy
     parent: base
     pause: false
     rebuild-age: 86400
     release: jammy
     username: ubuntu
 
+  - name: ubuntu-noble
+    elements:
+      - ubuntu-minimal
+    env-vars:
+      DIB_APT_LOCAL_CACHE: '0'
+      DIB_DISABLE_APT_CLEANUP: '1'
+      DIB_RELEASE: noble
+      FS_TYPE: ext3
+    formats:
+      - qcow2
+    parent: base
+    pause: false
+    rebuild-age: 86400
+    release: noble
+    username: ubuntu
+
 labels:
   - min-ready: 2
     name: ubuntu-jammy
+  - name: ubuntu-noble
   - name: pod-fedora-latest
   - name: pod-fedora-39
 
@@ -90,6 +107,11 @@ providers:
             flavor-name: SCS-2V-8-20
             key-name: zuul-nodepool
             name: ubuntu-jammy
+          - console-log: true
+            diskimage: ubuntu-noble
+            flavor-name: SCS-2V-8-20
+            key-name: zuul-nodepool
+            name: ubuntu-noble
         max-servers: 4
         name: main
         networks:
