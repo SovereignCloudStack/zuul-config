@@ -8,7 +8,7 @@
         - context: containers
           container_filename: Dockerfile.f39
           registry: registry.scs.community
-          repository: zuul/pod-fedora
+          repository: registry.scs.community/zuul/pod-fedora
           tags: ['39']
     files: &zuul-f39_files
       - containers/Dockerfile.f39
