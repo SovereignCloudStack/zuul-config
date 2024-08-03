@@ -8,11 +8,11 @@
         - context: containers
           container_filename: Dockerfile.f39
           registry: registry.scs.community
-          repository: zuul/pod-fedora
+          repository: registry.scs.community/zuul/pod-fedora
           tags: ['39']
     files: &zuul-f39_files
       - containers/Dockerfile.f39
-    #      - zuul.d/container-images/fedora.yaml
+      - zuul.d/container-images/fedora.yaml
 
 - job:
     name: zuul-config-upload-image-f39
@@ -34,7 +34,7 @@
           tags: ['40']
     files: &zuul-f40_files
       - containers/Dockerfile.f40
-  #  - zuul.d/container-images/fedora.yaml
+      - zuul.d/container-images/fedora.yaml
 
 - job:
     name: zuul-config-upload-image-f40
