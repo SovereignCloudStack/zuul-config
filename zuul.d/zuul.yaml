@@ -4,11 +4,11 @@
     merge-mode: "squash-merge"
     check:
       jobs:
-        - tox-linters
+        - scs-tox-linters
         - zuul-config-build-image-f39
         - zuul-config-build-image-f40
     gate:
       jobs:
-        - tox-linters
+        - scs-tox-linters
         - zuul-config-upload-image-f39
         - zuul-config-upload-image-f40
