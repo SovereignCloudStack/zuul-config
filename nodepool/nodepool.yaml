@@ -86,17 +86,17 @@ providers:
         labels:
           - name: pod-fedora-latest
             type: pod
-            image: registry.scs.community/zuul/zuul-fedora:40
+            image: registry.scs.community/zuul/pod-fedora:40
             cpu: 2
             memory: 2048
           - name: pod-fedora-39
             type: pod
-            image: registry.scs.community/zuul/zuul-fedora:39
+            image: registry.scs.community/zuul/pod-fedora:39
             cpu: 2
             memory: 2048
           - name: pod-fedora-40
             type: pod
-            image: registry.scs.community/zuul/zuul-fedora:40
+            image: registry.scs.community/zuul/pod-fedora:40
             cpu: 2
             memory: 2048
 
