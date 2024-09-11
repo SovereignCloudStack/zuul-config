@@ -63,6 +63,7 @@
           - SovereignCloudStack/zuul-mqtt-matrix-bridge
           - SovereignCloudStack/cluster-stacks
           - SovereignCloudStack/central-api
+          - SovereignCloudStack/release-notes
       opendevorg:
         untrusted-projects:
           - zuul/zuul-jobs:
