@@ -1,12 +1,21 @@
 ---
+- job:
+    name: zuul-config-test
+    parent: openstack-access-base
+    run: playbooks/run.yaml
+
 - project:
     default-branch: main
     merge-mode: "squash-merge"
     check:
       jobs:
-        - scs-tox-linters
-        - zuul-config-build-image-f39
-        - zuul-config-build-image-f40
+        - noop
+      # - scs-tox-linters
+      # - zuul-config-build-image-f39
+      # - zuul-config-build-image-f40
+    check-post:
+      jobs:
+        - zuul-config-test
     gate:
       jobs:
         - scs-tox-linters

@@ -1,0 +1,19 @@
+---
+- hosts: all
+  tasks:
+    - ansible.builtin.stat:
+        path: /etc/openstack/clouds.yaml
+      register: clouds_stat
+
+    - ansible.builtin.debug:
+        var: clouds_stat
+
+    - ansible.builtin.debug:
+        var: ansible_user
+
+    - ansible.builtin.slurp:
+        src: /etc/openstack/clouds.yaml
+      register: clouds
+
+    - debug:
+        var: "clouds"
