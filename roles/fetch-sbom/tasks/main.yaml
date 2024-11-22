@@ -1,0 +1,22 @@
+- name: Fetch sbom file to job artifacts
+  ansible.builtin.copy:
+    dest: "{{ zuul_output_dir }}/logs/"
+    src: "{{ zj_item.bom_path }}"
+    mode: 0644
+    remote_src: true
+  loop: "{{ zuul_bom_results | default([]) }}"
+  loop_control:
+    loop_var: zj_item
+
+- name: Return artifact to Zuul
+  zuul_return:
+    data:
+      zuul:
+        artifacts:
+          - name: "SBOM: {{ zj_item.project_name }}:{{ zj_item.project_version }}"
+            url: "{{ zj_item.bom_path | basename }}"
+            metadata:
+              type: sbom
+  loop: "{{ zuul_bom_results | default([]) }}"
+  loop_control:
+    loop_var: zj_item
