@@ -125,7 +125,7 @@ providers:
             flavor-name: SCS-2V-8-20
             key-name: zuul-nodepool
             name: ubuntu-noble
-        max-servers: 10
+        max-servers: 0
         name: main
         networks:
           - zuul_network
