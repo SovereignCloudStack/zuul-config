@@ -1,0 +1,13 @@
+---
+- hosts: all
+  roles:
+    - ensure-trivy
+    - ensure-syft
+  tasks:
+    - name: "Create SBOMs directory"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/zuul-output/artifacts/sboms"
+        state: "directory"
+        mode: 0755
+
+
