@@ -62,7 +62,6 @@ diskimages:
     formats:
       - qcow2
     parent: base
-    pause: true
     rebuild-age: 86400
     release: noble
     username: ubuntu
