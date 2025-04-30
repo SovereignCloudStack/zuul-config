@@ -27,6 +27,7 @@
           - SovereignCloudStack/contributor-guide
           - SovereignCloudStack/docker-horizon
           - SovereignCloudStack/documentation
+          - SovereignCloudStack/docs
           - SovereignCloudStack/generics
           - SovereignCloudStack/graphics
           - SovereignCloudStack/gx-scs-identity-provider
