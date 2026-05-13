@@ -22,11 +22,7 @@
               load-branch: main
         untrusted-projects:
           - SovereignCloudStack/zuul-config
-          - SovereignCloudStack/docs
           - SovereignCloudStack/standards
-          - SovereignCloudStack/container-images
-          - SovereignCloudStack/cluster-stacks
-          - SovereignCloudStack/release-notes
       opendevorg:
         untrusted-projects:
           - zuul/zuul-jobs:
