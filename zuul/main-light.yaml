@@ -1,0 +1,30 @@
+---
+# WARNING: GitHub gives you a feeling of being case insensitive, but it is not.
+# Be sure to use proper case when adding new projects here. This is especially
+# important for the organization name
+#
+- authorization-rule:
+    name: tenant-scs-mgmt
+    conditions:
+      - resource_access.zuul.roles: "tenant-scs-mgmt"
+
+- tenant:
+    name: scs
+    admin-rules:
+      - tenant-scs-mgmt
+    exclude-unprotected-branches: true
+    max-job-timeout: 21600
+    max-nodes-per-job: 5
+    source:
+      github:
+        config-projects:
+          - SovereignCloudStack/zuul-scs-jobs:
+              load-branch: main
+        untrusted-projects:
+          - SovereignCloudStack/zuul-config
+          - SovereignCloudStack/standards
+      opendevorg:
+        untrusted-projects:
+          - zuul/zuul-jobs:
+              include:
+                - job
