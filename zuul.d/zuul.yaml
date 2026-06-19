@@ -7,6 +7,7 @@
         - scs-tox-linters
         - zuul-config-build-image-f39
         - zuul-config-build-image-f40
+        - scs-scan-container-images
     gate:
       jobs:
         - scs-tox-linters

@@ -1,0 +1,15 @@
+---
+- job:
+    name: scs-scan-container-images
+    description: |
+      Scan container image
+    nodeset: pod-fedora-40
+    pre-run: playbooks/sbom/pre.yaml
+    run: playbooks/sbom/run-containers.yaml
+    post-run: playbooks/sbom/post.yaml
+    vars:
+      images:
+        - registry: registry.scs.community
+          name: status-page/status-page-web
+          tag: v1.0.0
+          hash: sha256:bbc899f6a1845e0e11109933bd31968a17593ccb8f6162bb2191e8fbb7a5ae30 
