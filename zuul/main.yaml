@@ -34,9 +34,6 @@
           - SovereignCloudStack/scs-training-kaas-scripts
           - SovereignCloudStack/issues
           - SovereignCloudStack/minutes
-          - SovereignCloudStack/security-infra-scan-pipeline
-          - SovereignCloudStack/security-k8s-scan-pipeline
-          - SovereignCloudStack/defectdojo
           - SovereignCloudStack/website
           - SovereignCloudStack/standards
           - SovereignCloudStack/cloud-interconnect
@@ -64,6 +61,7 @@
 #          - SovereignCloudStack/container-images
 #          - SovereignCloudStack/contributor-guide
 #          - SovereignCloudStack/csctl-plugin-openstack
+#          - SovereignCloudStack/defectdojo
 #          - SovereignCloudStack/devicetype-library
 #          - SovereignCloudStack/docker-horizon
 #          - SovereignCloudStack/docs-page
@@ -105,6 +103,8 @@
 #          - SovereignCloudStack/scs-bootstrap-clusterstacks-openstack
 #          - SovereignCloudStack/scs-did-creator
 #          - SovereignCloudStack/scs-maschinenraum
+#          - SovereignCloudStack/security-infra-scan-pipeline
+#          - SovereignCloudStack/security-k8s-scan-pipeline
 #          - SovereignCloudStack/sonic-buildimage
 #          - SovereignCloudStack/status-magic-link-poc
 #          - SovereignCloudStack/status-page-api
