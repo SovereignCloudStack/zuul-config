@@ -37,11 +37,13 @@
       - zuul.d/container-images/fedora.yaml
 
 - job:
-    name: zuul-config-upload-image-f44
-    description: Build and upload a f44 image.
+    name: zuul-config-upload-image-f40
+    description: Build and upload a f40 image.
     parent: zuul-config-upload-image
-    vars: *zuul-f44_vars
-    files: *zuul-f44_files- job:
+    vars: *zuul-f40_vars
+    files: *zuul-f40_files
+
+- job:
     name: zuul-config-build-image-f44
     description: Build a F44 image.
     parent: zuul-config-build-image
