@@ -66,15 +66,32 @@ diskimages:
     release: noble
     username: ubuntu
 
+  - name: ubuntu-resolute
+    elements:
+      - ubuntu-minimal
+    env-vars:
+      DIB_APT_LOCAL_CACHE: '0'
+      DIB_DISABLE_APT_CLEANUP: '1'
+      DIB_RELEASE: resolute
+      FS_TYPE: ext4
+    formats:
+      - qcow2
+    parent: base
+    rebuild-age: 86400
+    release: resolute
+    username: ubuntu
+
 labels:
   - name: ubuntu-jammy
-    min-ready: 2
-  - name: ubuntu-jammy-large
+  - name: ubuntu-noble-large
     min-ready: 1
   - name: ubuntu-noble
+    min-ready: 2
+  - name: ubuntu-resolute
+    min-ready: 1
   - name: pod-fedora-latest
-  - name: pod-fedora-39
   - name: pod-fedora-40
+  - name: pod-fedora-44
 
 providers:
   - name: osinfra
@@ -85,12 +102,12 @@ providers:
         labels:
           - name: pod-fedora-latest
             type: pod
-            image: registry.scs.community/zuul/pod-fedora:40
+            image: registry.scs.community/zuul/pod-fedora:44
             cpu: 2
             memory: 2048
-          - name: pod-fedora-39
+          - name: pod-fedora-44
             type: pod
-            image: registry.scs.community/zuul/pod-fedora:39
+            image: registry.scs.community/zuul/pod-fedora:44
             cpu: 2
             memory: 2048
           - name: pod-fedora-40
@@ -115,15 +132,20 @@ providers:
             key-name: zuul-nodepool
             name: ubuntu-jammy
           - console-log: true
-            diskimage: ubuntu-jammy
+            diskimage: ubuntu-noble
             flavor-name: SCS-4V-8-20
             key-name: zuul-nodepool
-            name: ubuntu-jammy-large
+            name: ubuntu-noble-large
           - console-log: true
             diskimage: ubuntu-noble
             flavor-name: SCS-2V-8-20
             key-name: zuul-nodepool
             name: ubuntu-noble
+          - console-log: true
+            diskimage: ubuntu-resolute
+            flavor-name: SCS-2V-8-20
+            key-name: zuul-nodepool
+            name: ubuntu-resolute
         max-servers: 10
         name: main
         networks:

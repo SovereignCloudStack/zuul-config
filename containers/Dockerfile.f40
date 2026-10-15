@@ -1,5 +1,5 @@
 FROM quay.io/fedora/fedora:40-x86_64
- 
+
 ENV XDG_CACHE_HOME=/root/.cache
 RUN dnf update -y && dnf install -y iproute rsync git traceroute unzip bzip2 \
   bzip2-devel libffi-devel sqlite-devel sqlite-devel rpm-sign expect \

@@ -7,8 +7,10 @@
         - scs-tox-linters
         - zuul-config-build-image-f39
         - zuul-config-build-image-f40
+        - zuul-config-build-image-f44
     gate:
       jobs:
         - scs-tox-linters
         - zuul-config-upload-image-f39
         - zuul-config-upload-image-f40
+        - zuul-config-upload-image-f44
