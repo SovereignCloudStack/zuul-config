@@ -33,6 +33,10 @@
         "ntp": "",
         "ntpdate": ""
       }
+      "resolute": {
+        "ntp": "",
+        "ntpdate": ""
+      }
    }
   },
   "distro": {
